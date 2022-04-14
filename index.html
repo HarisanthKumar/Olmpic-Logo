@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olmpic Logo</title>
+</head>
+
+<body>
+    <center>
+        <h1>Olmpic Logo</h1>
+        <canvas id="canvas" height="0px" width="0px"></canvas>
+        <br><br><br>
+        <h3>Press the arrow keys to move the logo</h3>
+    </center>
+</body>
+<style>
+    body {
+        background-color: green;
+    }
+
+    canvas {
+        border: 3px solid blue;
+        background-color: white;
+    }
+</style>
+<script>
+    var canvas = document.querySelector("#canvas");
+    var ctx = canvas.getContext("2d");
+    var r = 100;
+    var h = 0;
+    var w = 0;
+    var x = 0;
+    var y = 0;
+    setInterval(draw, 1);
+    function change() {
+        h = window.innerHeight * 75 / 100;
+        w = window.innerWidth * 75 / 100;
+        canvas.height = h;
+        canvas.width = w;
+        draw();
+    };
+    window.addEventListener("resize", change);
+    change();
+    function draw() {
+        if (l==true){
+            if (270+x_>=16){
+                x_=x_-1;
+            };
+        };
+        if(r==true){
+            if (990+x_<=canvas.width-16){
+                x_=x_+1;
+            };
+        };
+        if(u==true){
+            if (135+y_>=16){
+                y_=y_-1;
+            };
+        };
+        if(d==true){
+            if (500+y_<=canvas.height-16){
+                y_=y_+1;
+            };
+        };
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        circle("blue", 400, 250);
+        circle("black", 630, 250);
+        circle("red", 860, 250);
+        circle("yellow", 515, 380);
+        circle("green", 745, 380);
+        line(270, 135, 990, 135);
+        line(990, 135, 990, 500);
+        line(990, 500, 270, 500);
+        line(270, 500, 270, 135);
+    };
+    function circle(c, x, y) {
+        ctx.beginPath();
+        ctx.strokeStyle = c;
+        ctx.lineWidth = 6;
+        ctx.arc(x+x_, y+y_, 100, 0, 360);
+        ctx.stroke();
+    };
+
+    function line(lx, ly, x, y) {
+        lx+=x_;
+        ly+=y_;
+        x+=x_;
+        y+=y_;
+        ctx.beginPath();
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 5;
+        ctx.moveTo(lx, ly);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+    };
+    var x_=0;
+    var y_=0;
+    var r=false;
+    var l=false;
+    var u=false;
+    var d=false;
+    var down=0;
+    var up=0;
+    window.addEventListener("keydown", keydown);
+    function keydown(e){
+        down=e.keyCode;
+        if (down==37){
+            l=true;
+            console.log("left");
+        };
+        if(down==39){
+            r=true;
+            console.log("right");
+        };
+        if(down==38){
+            u=true;
+            console.log("up");
+        };
+        if(down==40){
+            d=true;
+            console.log("down");
+        };
+        draw();
+    };
+    window.addEventListener("keyup", keyup);
+    function keyup(e){
+        up=e.keyCode;
+        if (up==37){
+            l=false;
+        };
+        if (up==39){
+            r=false;
+        };
+        if(up==38){
+            u=false;
+        };
+        if(up==40){
+            d=false;
+        };
+        draw();
+    };
+</script>
+
+</html>
